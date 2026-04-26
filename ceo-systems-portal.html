@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEO Systems Method™ — Student Portal | Cat Ilacad · catilacad.com</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--cream:#FDF8F9;--warm-white:#FAF4F6;--sand:#F2DDE4;--rose:#C4748A;--rose-deep:#9B5070;--blush:#F2DDE4;--plum:#3D1F2E;--warm-gray:#7A6670;--sage:#7A8C78;--sage-light:#E8EDE7;--gold:#C9A84C;--gold-light:#F5EDD6;--mauve:#9B6677;--dusty:#E8C4CF;--sidebar-w:270px}
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--plum);display:flex;min-height:100vh}
+  .sidebar{width:var(--sidebar-w);background:var(--plum);color:var(--cream);position:fixed;top:0;left:0;bottom:0;display:flex;flex-direction:column;overflow-y:auto;z-index:50;padding-bottom:2rem}
+  .sidebar-brand{padding:1.75rem 1.5rem 1.25rem;border-bottom:1px solid rgba(255,255,255,0.08)}
+  .sidebar-brand-name{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;line-height:1.3}
+  .sidebar-brand-name span{color:var(--rose)}
+  .sidebar-brand-author{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.25rem}
+  .sidebar-section{padding:1.1rem 1rem .4rem}
+  .sidebar-section-label{font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);padding:0 .5rem;margin-bottom:.5rem}
+  .nav-item{display:flex;align-items:center;gap:.65rem;padding:.5rem .75rem;border-radius:8px;font-size:.84rem;color:rgba(255,255,255,.6);cursor:pointer;text-decoration:none;transition:all .15s;margin-bottom:.1rem}
+  .nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+  .nav-item.active{background:var(--rose);color:#fff}
+  .nav-icon{font-size:.9rem;flex-shrink:0}
+  .nav-check{margin-left:auto;width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.6rem;flex-shrink:0}
+  .nav-item.done .nav-check{background:var(--sage);border-color:var(--sage);color:#fff}
+  .sidebar-progress{margin:1.25rem 1rem;padding:1rem;background:rgba(255,255,255,.05);border-radius:12px}
+  .progress-label{display:flex;justify-content:space-between;font-size:.72rem;color:rgba(255,255,255,.35);margin-bottom:.6rem}
+  .progress-bar{height:4px;background:rgba(255,255,255,.1);border-radius:100px;overflow:hidden}
+  .progress-fill{height:100%;background:var(--rose);border-radius:100px;width:0%;transition:width .5s ease}
+  .main{margin-left:var(--sidebar-w);flex:1}
+  .topbar{position:sticky;top:0;background:rgba(253,248,249,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--dusty);padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;z-index:40}
+  .topbar-breadcrumb{font-size:.8rem;color:var(--warm-gray);display:flex;align-items:center;gap:.4rem}
+  .topbar-breadcrumb strong{color:var(--plum);font-weight:600}
+  .mark-done-btn{background:var(--sage-light);color:var(--sage);border:none;padding:.5rem 1rem;border-radius:100px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+  .mark-done-btn:hover{background:var(--sage);color:#fff}
+  .mark-done-btn.marked{background:var(--sage);color:#fff}
+  .content{padding:3rem 2.5rem 5rem;max-width:800px}
+  .page{display:none}
+  .page.active{display:block}
+  .welcome-hero{background:var(--plum);border-radius:20px;padding:3rem;color:var(--cream);margin-bottom:2rem;position:relative;overflow:hidden}
+  .welcome-hero::before{content:'✦';position:absolute;font-size:10rem;right:-1rem;top:-2rem;opacity:.04;line-height:1}
+  .welcome-tag{display:inline-block;background:var(--rose);color:#fff;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;border-radius:100px;margin-bottom:1.25rem}
+  .welcome-hero h1{font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:700;line-height:1.2;letter-spacing:-.02em;margin-bottom:1rem}
+  .welcome-hero p{font-size:.95rem;color:rgba(255,255,255,.6);line-height:1.7;max-width:520px;font-weight:300}
+  .author-line{margin-top:1.5rem;font-size:.8rem;color:rgba(255,255,255,.3);border-top:1px solid rgba(255,255,255,.08);padding-top:1rem}
+  .author-line span{color:var(--rose);font-weight:600}
+  .quote-block{background:var(--plum);border-radius:14px;padding:1.5rem 2rem;margin-bottom:2rem}
+  .quote-block p{font-family:'Fraunces',serif;font-size:1.05rem;font-style:italic;color:var(--cream);line-height:1.6;font-weight:300}
+  .quote-block p strong{color:var(--rose);font-style:normal}
+  .quote-block cite{display:block;font-size:.75rem;color:rgba(255,255,255,.3);margin-top:.75rem}
+  .welcome-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-bottom:2rem}
+  .welcome-card{background:var(--warm-white);border:1px solid var(--dusty);border-radius:14px;padding:1.25rem}
+  .welcome-card-icon{font-size:1.3rem;margin-bottom:.5rem}
+  .welcome-card-title{font-size:.875rem;font-weight:600;margin-bottom:.25rem;color:var(--plum)}
+  .welcome-card-desc{font-size:.8rem;color:var(--warm-gray);line-height:1.5}
+  .how-to-use{background:var(--gold-light);border:1px solid #E0C980;border-radius:14px;padding:1.5rem;margin-bottom:2rem}
+  .how-to-use h3{font-family:'Fraunces',serif;font-size:1rem;font-weight:600;margin-bottom:1rem;color:#7A6020}
+  .how-steps{display:flex;flex-direction:column;gap:.6rem}
+  .how-step{display:flex;align-items:flex-start;gap:.75rem;font-size:.875rem;color:#7A6020}
+  .how-step-num{width:22px;height:22px;background:var(--gold);color:#fff;border-radius:50%;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+  .access-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:2rem}
+  .access-card{border-radius:20px;padding:2rem;position:relative;overflow:hidden}
+  .access-card-pdf{background:var(--plum);color:var(--cream)}
+  .access-card-notion{background:#fff;border:1.5px solid var(--dusty);color:var(--plum)}
+  .access-icon{font-size:2rem;margin-bottom:1rem}
+  .access-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem;color:var(--rose)}
+  .access-title{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;margin-bottom:.5rem;line-height:1.3}
+  .access-card-pdf .access-title{color:var(--cream)}
+  .access-desc{font-size:.82rem;line-height:1.6;margin-bottom:1.25rem}
+  .access-card-pdf .access-desc{color:rgba(255,255,255,.55)}
+  .access-card-notion .access-desc{color:var(--warm-gray)}
+  .access-btn{display:block;text-align:center;padding:.8rem 1.25rem;border-radius:100px;font-size:.875rem;font-weight:600;text-decoration:none;transition:all .2s}
+  .access-card-pdf .access-btn{background:var(--rose);color:#fff}
+  .access-card-pdf .access-btn:hover{background:var(--rose-deep)}
+  .access-card-notion .access-btn{background:var(--plum);color:#fff}
+  .access-card-notion .access-btn:hover{background:var(--rose-deep)}
+  .section-header{margin-bottom:2rem}
+  .section-tag{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;border-radius:100px;margin-bottom:.75rem}
+  .tag-rose{background:var(--blush);color:var(--rose-deep)}
+  .tag-sage{background:var(--sage-light);color:var(--sage)}
+  .tag-gold{background:var(--gold-light);color:#9A7A2A}
+  .tag-plum{background:var(--dusty);color:var(--plum)}
+  .tag-intro{background:var(--dusty);color:var(--warm-gray)}
+  .section-header h2{font-family:'Fraunces',serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:700;letter-spacing:-.02em;line-height:1.25;margin-bottom:.5rem;color:var(--plum)}
+  .section-header p{font-size:.95rem;color:var(--warm-gray);line-height:1.65;font-weight:300}
+  .week-card{background:#fff;border:1px solid var(--dusty);border-radius:16px;padding:1.75rem;margin-bottom:1.5rem}
+  .week-card-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid var(--dusty)}
+  .week-num{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;flex-shrink:0}
+  .week-info h3{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--plum);margin-bottom:.2rem}
+  .week-info p{font-size:.8rem;color:var(--warm-gray)}
+  .day-list{display:flex;flex-direction:column}
+  .day-item{display:flex;align-items:flex-start;gap:.75rem;font-size:.875rem;padding:.55rem 0;border-bottom:1px solid rgba(242,221,228,.5)}
+  .day-item:last-child{border-bottom:none}
+  .day-num{font-weight:700;color:var(--rose);font-size:.75rem;min-width:42px;padding-top:.15rem;flex-shrink:0}
+  .day-title{font-weight:500;color:var(--plum);margin-bottom:.1rem}
+  .day-desc{font-size:.78rem;color:var(--warm-gray)}
+  .insight-card{border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;border-left:3px solid var(--rose);background:var(--blush)}
+  .insight-card h5{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:.5rem}
+  .insight-card p{font-size:.875rem;color:var(--rose-deep);line-height:1.6}
+  .workbook-prompt{background:var(--gold-light);border-radius:14px;padding:1.5rem;margin-bottom:1.5rem}
+  .workbook-prompt h4{font-size:.85rem;font-weight:600;color:#7A6020;margin-bottom:.75rem}
+  .workbook-prompt p{font-size:.875rem;color:#7A6020;line-height:1.6}
+  .workbook-prompt ul{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin-top:.5rem}
+  .workbook-prompt li{font-size:.875rem;color:#7A6020;display:flex;gap:.5rem}
+  .workbook-prompt li::before{content:'→';flex-shrink:0}
+  .ceo-shift{display:flex;gap:1rem;margin-bottom:1.5rem}
+  .shift-side{flex:1;border-radius:12px;padding:1rem 1.25rem}
+  .shift-operator{background:var(--dusty)}
+  .shift-ceo{background:var(--plum);color:var(--cream)}
+  .shift-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;color:var(--warm-gray)}
+  .shift-ceo .shift-label{color:var(--rose)}
+  .shift-text{font-size:.875rem;line-height:1.5;color:var(--plum)}
+  .shift-ceo .shift-text{color:rgba(255,255,255,.8)}
+  .nav-btns{display:flex;gap:1rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--dusty)}
+  .nav-prev,.nav-next{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.4rem;border-radius:100px;font-size:.85rem;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .2s}
+  .nav-prev{background:var(--dusty);color:var(--plum)}
+  .nav-prev:hover{background:var(--sand)}
+  .nav-next{background:var(--rose);color:#fff;margin-left:auto}
+  .nav-next:hover{background:var(--rose-deep)}
+  .completion-card{background:var(--plum);border-radius:16px;padding:2.5rem;color:var(--cream);margin-top:2rem;text-align:center}
+  .completion-card h3{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;margin-bottom:.75rem}
+  .completion-card p{color:rgba(255,255,255,.55);font-size:.9rem;max-width:460px;margin:0 auto 1rem;line-height:1.7}
+  .completion-card .cat-quote{color:var(--rose);font-family:'Fraunces',serif;font-style:italic;font-size:1rem}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .page.active .content-animate{animation:fadeUp .4s ease both}
+  .mobile-nav-toggle{display:none;position:fixed;bottom:1.5rem;right:1.5rem;width:50px;height:50px;background:var(--plum);color:#fff;border-radius:50%;border:none;font-size:1.2rem;cursor:pointer;z-index:200;box-shadow:0 4px 20px rgba(61,31,46,.3);align-items:center;justify-content:center}
+  @media(max-width:700px){.sidebar{transform:translateX(-100%);transition:transform .3s}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.content{padding:2rem 1.25rem 4rem}.topbar{padding:1rem 1.25rem}.mobile-nav-toggle{display:flex}.access-grid,.ceo-shift{flex-direction:column}}
+</style>
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-name">CEO Systems <span>Method™</span></div>
+    <div class="sidebar-brand-author">by Cat Ilacad</div>
+  </div>
+  <div class="sidebar-progress">
+    <div class="progress-label"><span>Your Progress</span><span id="progress-pct">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Start Here</div>
+    <a class="nav-item active" onclick="showPage('welcome')" href="#"><span class="nav-icon">👋</span> Welcome<span class="nav-check">✓</span></a>
+    <a class="nav-item" onclick="showPage('access')" href="#"><span class="nav-icon">🔑</span> Get Your Materials<span class="nav-check">✓</span></a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Week 1 · Sales System™</div>
+    <a class="nav-item" onclick="showPage('w1')" href="#"><span class="nav-icon">🎯</span> Days 1–7<span class="nav-check">✓</span></a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Week 2 · Operations</div>
+    <a class="nav-item" onclick="showPage('w2')" href="#"><span class="nav-icon">⚙️</span> Days 8–14<span class="nav-check">✓</span></a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Week 3 · Money</div>
+    <a class="nav-item" onclick="showPage('w3')" href="#"><span class="nav-icon">💰</span> Days 15–21<span class="nav-check">✓</span></a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Week 4 · CEO Role</div>
+    <a class="nav-item" onclick="showPage('w4')" href="#"><span class="nav-icon">👑</span> Days 22–30<span class="nav-check">✓</span></a>
+  </div>
+</aside>
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-breadcrumb">CEO Systems Method™ <span>›</span> <strong id="breadcrumb-title">Welcome</strong></div>
+    <button class="mark-done-btn" id="mark-done-btn" onclick="markDone()">✓ Mark Complete</button>
+  </div>
+  <div class="content">
+
+    <!-- WELCOME -->
+    <div class="page active" id="page-welcome"><div class="content-animate">
+      <div class="welcome-hero">
+        <div class="welcome-tag">✦ Welcome to your reset</div>
+        <h1>You don't need to do more.<br>You need to build better.</h1>
+        <p>Over the next 30 days, you'll stop running your business on effort and start running it on systems. One day, one prompt, one shift at a time.</p>
+        <div class="author-line">Created by <span>Cat Ilacad</span> · 23 years building Posh Nails</div>
+      </div>
+      <div class="quote-block">
+        <p>"A business that relies on effort will always feel heavy. A business built on <strong>systems</strong> becomes sustainable."</p>
+        <cite>— Cat Ilacad, CEO Systems Method™</cite>
+      </div>
+      <div class="welcome-grid">
+        <div class="welcome-card"><div class="welcome-card-icon">📘</div><div class="welcome-card-title">PDF Workbook</div><div class="welcome-card-desc">Download and keep your full 30-day playbook forever.</div></div>
+        <div class="welcome-card"><div class="welcome-card-icon">💻</div><div class="welcome-card-title">Notion Portal</div><div class="welcome-card-desc">Fill in your workbook digitally — structured and interactive.</div></div>
+        <div class="welcome-card"><div class="welcome-card-icon">🔑</div><div class="welcome-card-title">4 Core Systems</div><div class="welcome-card-desc">Sales · Operations · Money · CEO — built one week at a time.</div></div>
+        <div class="welcome-card"><div class="welcome-card-icon">♾️</div><div class="welcome-card-title">Lifetime Access</div><div class="welcome-card-desc">Return anytime. Your systems grow as your business grows.</div></div>
+      </div>
+      <div class="how-to-use">
+        <h3>📌 How to get the most out of this</h3>
+        <div class="how-steps">
+          <div class="how-step"><div class="how-step-num">1</div><span>Get your materials first — download the PDF and duplicate the Notion portal.</span></div>
+          <div class="how-step"><div class="how-step-num">2</div><span>Choose your format — printed PDF or digital Notion. Both work equally well.</span></div>
+          <div class="how-step"><div class="how-step-num">3</div><span>Go one day at a time. 15–30 minutes is enough. Don't skip ahead.</span></div>
+          <div class="how-step"><div class="how-step-num">4</div><span>Answer every prompt honestly. The more real you are, the more useful this becomes.</span></div>
+          <div class="how-step"><div class="how-step-num">5</div><span>Complete one full week before moving to the next system.</span></div>
+        </div>
+      </div>
+      <div class="nav-btns"><button class="nav-next" onclick="showPage('access')">Next: Get Your Materials →</button></div>
+    </div></div>
+
+    <!-- ACCESS -->
+    <div class="page" id="page-access"><div class="content-animate">
+      <div class="section-header">
+        <span class="section-tag tag-intro">🔑 Your Materials</span>
+        <h2>Get Everything You Need</h2>
+        <p>Two formats, one complete workbook. Download the PDF to keep forever, or open the Notion portal to fill in digitally. Both contain the full 30-day CEO Systems Method™.</p>
+      </div>
+      <div class="access-grid">
+        <div class="access-card access-card-pdf">
+          <div class="access-icon">📘</div>
+          <div class="access-label">Format 1</div>
+          <div class="access-title">PDF Workbook</div>
+          <div class="access-desc">Download the complete 30-day workbook as a PDF. Print it or fill it in digitally using Adobe. Yours to keep forever.</div>
+          <a href="YOUR_GOOGLE_DRIVE_PDF_LINK" target="_blank" class="access-btn">⬇ Download PDF →</a>
+        </div>
+        <div class="access-card access-card-notion">
+          <div class="access-icon">💻</div>
+          <div class="access-label">Format 2</div>
+          <div class="access-title">Notion Portal</div>
+          <div class="access-desc">Open the interactive Notion workspace. Click "Duplicate" to save your own copy — then fill in each day at your pace.</div>
+          <a href="YOUR_NOTION_LINK" target="_blank" class="access-btn">Open in Notion →</a>
+        </div>
+      </div>
+      <div class="insight-card">
+        <h5>💡 Which format should I use?</h5>
+        <p>Use whichever feels most natural. Some people prefer printing the PDF and writing by hand — it forces slower, more intentional thinking. Others prefer Notion because it's searchable and always with them. You can also use both — PDF for daily prompts, Notion as your ongoing business reference.</p>
+      </div>
+      <div class="workbook-prompt">
+        <h4>✍️ Before you start — Your Baseline (Day 1 Prompt)</h4>
+        <p>Rate each system from 1–5 based on how structured it feels right now. Your lowest score is your first priority. You'll revisit this on Day 30.</p>
+        <ul><li>Sales System: ___</li><li>Operations System: ___</li><li>Spend System: ___</li><li>CEO System: ___</li></ul>
+      </div>
+      <div class="nav-btns">
+        <button class="nav-prev" onclick="showPage('welcome')">← Back</button>
+        <button class="nav-next" onclick="showPage('w1')">Next: Week 1 · Sales System →</button>
+      </div>
+    </div></div>
+
+    <!-- WEEK 1 -->
+    <div class="page" id="page-w1"><div class="content-animate">
+      <div class="section-header">
+        <span class="section-tag tag-rose">Week 1 · Days 1–7</span>
+        <h2>The Sales System™</h2>
+        <p>How you consistently attract the right people, guide them to a decision, and keep them coming back — without relying on luck, guesswork, or random referrals.</p>
+      </div>
+      <div class="week-card">
+        <div class="week-card-header">
+          <div class="week-num" style="background:var(--blush);color:var(--rose-deep)">01</div>
+          <div class="week-info"><h3>Sales System™</h3><p>Ideal Client Filter™ · Hero Offer™ · Guided Client Flow™ · Retention Loop™</p></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item"><div class="day-num">Day 1</div><div><div class="day-title">Why your business feels harder than it should</div><div class="day-desc">Rate your 4 systems. Find your biggest gap. Set your starting point.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 2</div><div><div class="day-title">The Ideal Client Filter™</div><div class="day-desc">Define exactly who your business is for — in one clear sentence.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 3</div><div><div class="day-title">The Hero Offer Framework™</div><div class="day-desc">Stop presenting everything. Lead with one clear, focused starting point.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 4</div><div><div class="day-title">The Guided Client Flow™</div><div class="day-desc">Map your full client journey — from first contact to rebook.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 5</div><div><div class="day-title">The 4-Step Close</div><div class="day-desc">Acknowledge · Ask · Recommend · Close. Structure your DMs to lead, not just respond.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 6</div><div><div class="day-title">The Retention Loop™</div><div class="day-desc">Design your return path. Your next sale starts before the current one ends.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 7</div><div><div class="day-title">Your Sales System on One Page</div><div class="day-desc">Connect everything you built this week into one clear reference.</div></div></div>
+        </div>
+      </div>
+      <div class="insight-card"><h5>🔑 The Key Shift</h5><p>You don't need more people. You need the right people — ones who already see the value in what you do. Clarity in your client removes friction across your entire business.</p></div>
+      <div class="workbook-prompt">
+        <h4>✍️ Day 7 Prompt — Your Sales System on One Page</h4>
+        <ul>
+          <li>Who is your ideal client? ("I help ___ who want ___")</li>
+          <li>What is your Hero Offer? ("I offer ___ for ___ who want ___ without ___")</li>
+          <li>What does your Guided Client Flow look like? (5 steps)</li>
+          <li>How do you structure your sales conversations? (4 steps)</li>
+          <li>What is your retention step after every transaction?</li>
+        </ul>
+      </div>
+      <div class="ceo-shift">
+        <div class="shift-side shift-operator"><div class="shift-label">Operator</div><div class="shift-text">Tries to appeal to everyone — reacts to whoever shows up</div></div>
+        <div class="shift-side shift-ceo"><div class="shift-label">CEO</div><div class="shift-text">Chooses exactly who the business is for — leads every interaction</div></div>
+      </div>
+      <div class="nav-btns">
+        <button class="nav-prev" onclick="showPage('access')">← Back</button>
+        <button class="nav-next" onclick="showPage('w2')">Next: Week 2 · Operations →</button>
+      </div>
+    </div></div>
+
+    <!-- WEEK 2 -->
+    <div class="page" id="page-w2"><div class="content-animate">
+      <div class="section-header">
+        <span class="section-tag tag-sage">Week 2 · Days 8–14</span>
+        <h2>The No-Think System™</h2>
+        <p>How your business runs daily — without chaos, repeated decisions, or everything depending on you remembering every step every time.</p>
+      </div>
+      <div class="week-card">
+        <div class="week-card-header">
+          <div class="week-num" style="background:var(--sage-light);color:var(--sage)">02</div>
+          <div class="week-info"><h3>No-Think System™</h3><p>Ideal Day Structure™ · No-Think Checklist™ · Weekly Rhythm™ · Simple SOP™</p></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item"><div class="day-num">Day 8</div><div><div class="day-title">Why your business feels messy</div><div class="day-desc">It's a structure problem — not a discipline or motivation problem.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 9</div><div><div class="day-title">The Ideal Day Structure™</div><div class="day-desc">Design your day in advance. Stop deciding what to do as you go.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 10</div><div><div class="day-title">The No-Think Checklist™</div><div class="day-desc">Turn repeated tasks into a fixed sequence. Stop relying on memory.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 11</div><div><div class="day-title">The Weekly Rhythm™</div><div class="day-desc">Assign a focus to each day. Stop running your business day-to-day.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 12</div><div><div class="day-title">The Simple SOP™</div><div class="day-desc">If you explain it more than once, write it down. Document once, follow every time.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 13</div><div><div class="day-title">Time Blocking for Business™</div><div class="day-desc">Protect your time intentionally. Not everything deserves your attention immediately.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 14</div><div><div class="day-title">Your Operations System on One Page</div><div class="day-desc">Daily structure · checklists · weekly rhythm · SOPs · time blocks.</div></div></div>
+        </div>
+      </div>
+      <div class="insight-card"><h5>🔑 The Key Insight</h5><p>If you have to think about it every day, it should be a system. Structure doesn't make your business rigid — it makes it reliable, even on low-energy days.</p></div>
+      <div class="workbook-prompt">
+        <h4>✍️ Day 14 Prompt — Your Operations on One Page</h4>
+        <ul>
+          <li>What does your Ideal Day Structure look like?</li>
+          <li>What are your 3 most important checklists?</li>
+          <li>What does your Weekly Rhythm look like?</li>
+          <li>Which repeated tasks now have a Simple SOP?</li>
+          <li>When are your protected time blocks?</li>
+        </ul>
+      </div>
+      <div class="ceo-shift">
+        <div class="shift-side shift-operator"><div class="shift-label">Operator</div><div class="shift-text">Remembers and reacts — carries everything in their head</div></div>
+        <div class="shift-side shift-ceo"><div class="shift-label">CEO</div><div class="shift-text">Standardizes and repeats — the system remembers for them</div></div>
+      </div>
+      <div class="nav-btns">
+        <button class="nav-prev" onclick="showPage('w1')">← Back</button>
+        <button class="nav-next" onclick="showPage('w3')">Next: Week 3 · Money →</button>
+      </div>
+    </div></div>
+
+    <!-- WEEK 3 -->
+    <div class="page" id="page-w3"><div class="content-animate">
+      <div class="section-header">
+        <span class="section-tag tag-gold">Week 3 · Days 15–21</span>
+        <h2>The Spend System™</h2>
+        <p>Revenue is what you make. Profit is what you keep. This week ends the Busy But Broke Cycle™ and gives you real clarity and control over your numbers.</p>
+      </div>
+      <div class="week-card">
+        <div class="week-card-header">
+          <div class="week-num" style="background:var(--gold-light);color:#7A6020">03</div>
+          <div class="week-info"><h3>Spend System™</h3><p>Pricing · Profit Awareness Shift™ · Expense Awareness · Simple Income Tracker™</p></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item"><div class="day-num">Day 15</div><div><div class="day-title">Your Money Reality Check</div><div class="day-desc">You cannot improve what you don't clearly see. Start with honest numbers.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 16</div><div><div class="day-title">The Sustainable Pricing Check™</div><div class="day-desc">You don't have a sales problem — you have a pricing problem.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 17</div><div><div class="day-title">The Profit Awareness Shift™</div><div class="day-desc">Revenue – Expenses = Profit. That second number is what matters.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 18</div><div><div class="day-title">The Expense Awareness System™</div><div class="day-desc">Most businesses lose money in small, unnoticed ways. Find your leaks.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 19</div><div><div class="day-title">The Simple Income Tracker™</div><div class="day-desc">Date · Income · Source. A simple system you use beats a complex one you avoid.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 20</div><div><div class="day-title">The Consistent Cash Flow System™</div><div class="day-desc">Consistent income is built, not hoped for. Steady flow + clear offer + retention.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 21</div><div><div class="day-title">Your Money System on One Page</div><div class="day-desc">How you track income · manage expenses · price · support steady cash flow.</div></div></div>
+        </div>
+      </div>
+      <div class="insight-card"><h5>🔑 The Busy But Broke Cycle™</h5><p>Being fully booked does not automatically mean being profitable. Without aligned pricing and tracked expenses, more clients just means more work — not better results. This week breaks that cycle.</p></div>
+      <div class="workbook-prompt">
+        <h4>✍️ Day 21 Prompt — Your Money System on One Page</h4>
+        <ul>
+          <li>What is your total income this month?</li>
+          <li>What are your expenses? (fixed, variable, small recurring)</li>
+          <li>What is your actual profit? (Revenue – Expenses)</li>
+          <li>Is your main offer priced sustainably — for you?</li>
+          <li>What one weekly action will you repeat to support consistent income?</li>
+        </ul>
+      </div>
+      <div class="ceo-shift">
+        <div class="shift-side shift-operator"><div class="shift-label">Operator</div><div class="shift-text">Focuses on how much comes in — relies on feeling — avoids the numbers</div></div>
+        <div class="shift-side shift-ceo"><div class="shift-label">CEO</div><div class="shift-text">Focuses on what is kept — manages money with clarity and intention</div></div>
+      </div>
+      <div class="nav-btns">
+        <button class="nav-prev" onclick="showPage('w2')">← Back</button>
+        <button class="nav-next" onclick="showPage('w4')">Next: Week 4 · CEO Shift →</button>
+      </div>
+    </div></div>
+
+    <!-- WEEK 4 -->
+    <div class="page" id="page-w4"><div class="content-animate">
+      <div class="section-header">
+        <span class="section-tag tag-plum">Week 4 · Days 22–30</span>
+        <h2>The CEO Shift™</h2>
+        <p>Your role, your decisions, and your delegation plan. The final and most important system — the one that allows your business to grow beyond you.</p>
+      </div>
+      <div class="week-card">
+        <div class="week-card-header">
+          <div class="week-num" style="background:var(--dusty);color:var(--plum)">04</div>
+          <div class="week-info"><h3>CEO Shift™</h3><p>Bottleneck Break™ · Delegation Filter™ · CEO Decision Filter™ · CEO Role Shift™</p></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item"><div class="day-num">Day 22</div><div><div class="day-title">The Bottleneck Break™</div><div class="day-desc">Separate what only you can do from what others can do with a clear process.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 23</div><div><div class="day-title">The Delegation Filter™</div><div class="day-desc">Does it require me? Can it follow a process? Is this my best use of time?</div></div></div>
+          <div class="day-item"><div class="day-num">Day 24</div><div><div class="day-title">The First Role Method™</div><div class="day-desc">You don't need a full team. Define one clear role your business is ready to release.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 25</div><div><div class="day-title">The Training Loop™</div><div class="day-desc">Show → Guide → Repeat. Consistency comes from clarity, not talent.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 26</div><div><div class="day-title">Control Through Clarity™</div><div class="day-desc">Letting go without losing control. Define outcomes — not every step.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 27</div><div><div class="day-title">The CEO Decision Filter™</div><div class="day-desc">Does this move the business forward? Does it align with my systems?</div></div></div>
+          <div class="day-item"><div class="day-num">Day 28</div><div><div class="day-title">The CEO Role Shift™</div><div class="day-desc">You are no longer just running a business. You are leading one.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 29</div><div><div class="day-title">Your Business, Now With Systems</div><div class="day-desc">The Connected Systems View™ — all four working together as one.</div></div></div>
+          <div class="day-item"><div class="day-num">Day 30</div><div><div class="day-title">This Is How Your Business Grows From Here</div><div class="day-desc">The Continuous Improvement Cycle™ — review, refine, repeat. Don't restart.</div></div></div>
+        </div>
+      </div>
+      <div class="insight-card"><h5>🔑 The CEO Role (Day 28)</h5><p>Your role is no longer to do everything. Your role is to set direction, maintain standards, build and improve systems, and make key decisions. Growth requires a change in role — not just an increase in effort.</p></div>
+      <div class="workbook-prompt">
+        <h4>✍️ Day 30 Prompt — Your Business on One Page</h4>
+        <ul>
+          <li>How do you get and guide clients? (Sales System)</li>
+          <li>How does your business run daily? (Operations System)</li>
+          <li>How do you manage your money? (Money System)</li>
+          <li>What is your role now — and what are you stepping out of? (CEO System)</li>
+          <li>What one system will you improve first from here?</li>
+        </ul>
+        <p style="margin-top:.75rem">This is not a finish line. It's your new foundation.</p>
+      </div>
+      <div class="ceo-shift">
+        <div class="shift-side shift-operator"><div class="shift-label">Operator</div><div class="shift-text">Does everything — the business stops when they stop</div></div>
+        <div class="shift-side shift-ceo"><div class="shift-label">CEO</div><div class="shift-text">Defines outcomes, trusts systems, focuses only on what truly requires them</div></div>
+      </div>
+      <div class="completion-card">
+        <div style="font-size:2.5rem;margin-bottom:1rem">🎉</div>
+        <h3>You've completed the CEO Systems Method™</h3>
+        <p>You didn't just finish a program. You changed how you see your business. From reacting to structuring. From guessing to knowing. From doing everything to building systems that work without you.</p>
+        <p class="cat-quote">"You don't need to do more. You need to continue building better." — Cat Ilacad</p>
+      </div>
+      <div class="nav-btns"><button class="nav-prev" onclick="showPage('w3')">← Back</button></div>
+    </div></div>
+
+  </div>
+</div>
+<button class="mobile-nav-toggle" onclick="toggleSidebar()">☰</button>
+<script>
+  const pages=['welcome','access','w1','w2','w3','w4'];
+  const titles={welcome:'Welcome',access:'Get Your Materials',w1:'Week 1: Sales System™',w2:'Week 2: No-Think System™',w3:'Week 3: Spend System™',w4:'Week 4: CEO Shift™'};
+  const done=new Set(JSON.parse(localStorage.getItem('csm_done')||'[]'));
+  function showPage(id){
+    pages.forEach(p=>document.getElementById('page-'+p).classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+    document.getElementById('page-'+id).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(el=>{if((el.getAttribute('onclick')||'').includes("'"+id+"'"))el.classList.add('active')});
+    document.getElementById('breadcrumb-title').textContent=titles[id]||id;
+    const btn=document.getElementById('mark-done-btn');
+    btn.textContent=done.has(id)?'✓ Completed':'✓ Mark Complete';
+    btn.className=done.has(id)?'mark-done-btn marked':'mark-done-btn';
+    window.currentPage=id;window.scrollTo(0,0);
+    if(window.innerWidth<=700)document.getElementById('sidebar').classList.remove('open');
+  }
+  function markDone(){
+    const id=window.currentPage||'welcome';
+    if(done.has(id))done.delete(id);else done.add(id);
+    localStorage.setItem('csm_done',JSON.stringify([...done]));
+    updateProgress();showPage(id);
+  }
+  function updateProgress(){
+    document.querySelectorAll('.nav-item').forEach(el=>{
+      const match=(el.getAttribute('onclick')||'').match(/'(\w+)'/);
+      if(match&&done.has(match[1]))el.classList.add('done');else el.classList.remove('done');
+    });
+    const pct=Math.round((done.size/pages.length)*100);
+    document.getElementById('progress-pct').textContent=pct+'%';
+    document.getElementById('progress-fill').style.width=pct+'%';
+  }
+  function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+  window.currentPage='welcome';updateProgress();
+</script>
+</body>
+</html>
