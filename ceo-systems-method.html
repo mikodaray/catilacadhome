@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEO Systems Method™ — Build a Business That Runs Without You | Cat Ilacad</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FDF8F9;
+    --warm-white: #FAF4F6;
+    --sand: #F2DDE4;
+    --terracotta: #C4748A;
+    --terracotta-deep: #9B5070;
+    --terracotta-light: #F2DDE4;
+    --charcoal: #3D1F2E;
+    --warm-gray: #7A6670;
+    --sage: #7A8C78;
+    --sage-light: #E8EDE7;
+    --gold: #C9A84C;
+    --gold-light: #F5EDD6;
+    --mauve: #9B6677;
+    --blush: #F2DDE4;
+    --dusty: #E8C4CF;
+    --plum: #3D1F2E;
+    --rose: #C4748A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    border-bottom: 1px solid var(--sand);
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--terracotta); }
+  .nav-cta {
+    background: var(--terracotta);
+    color: white;
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--terracotta-deep); }
+
+  /* HERO */
+  .hero {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 6rem 2rem 5rem;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--gold-light);
+    color: var(--gold);
+    border: 1px solid #E0C980;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--warm-gray);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--terracotta);
+    color: white;
+    padding: 1rem 2.2rem;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-primary:hover { background: var(--terracotta-deep); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--charcoal);
+    padding: 1rem 2.2rem;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1.5px solid var(--sand);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--warm-gray); }
+
+  /* QUOTE BANNER */
+  .quote-banner {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .quote-banner::before {
+    content: '❝';
+    position: absolute;
+    font-size: 12rem;
+    top: -2rem;
+    left: 5%;
+    opacity: 0.05;
+    font-family: 'Fraunces', serif;
+    line-height: 1;
+  }
+  .quote-banner blockquote {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-style: italic;
+    font-weight: 300;
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .quote-banner blockquote span {
+    color: var(--terracotta);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* FOR WHO */
+  .section { padding: 5rem 2rem; }
+  .section-inner { max-width: 900px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .section-subtitle {
+    font-size: 1.05rem;
+    color: var(--warm-gray);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .pain-card {
+    background: var(--warm-white);
+    border: 1px solid var(--sand);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+  .pain-icon {
+    font-size: 1.3rem;
+    margin-top: 0.1rem;
+    flex-shrink: 0;
+  }
+  .pain-text {
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    line-height: 1.55;
+  }
+
+  /* TRANSFORMATION */
+  .transform-section {
+    background: var(--terracotta-light);
+    padding: 5rem 2rem;
+  }
+  .transform-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .transform-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  .transform-col { display: flex; flex-direction: column; gap: 1rem; }
+  .transform-arrow {
+    font-size: 1.8rem;
+    color: var(--terracotta);
+    text-align: center;
+  }
+  .transform-item {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    font-size: 0.92rem;
+    color: var(--warm-gray);
+    text-decoration: line-through;
+    border: 1px solid #E8C4CF;
+  }
+  .transform-item.after {
+    text-decoration: none;
+    color: var(--charcoal);
+    font-weight: 500;
+    border-color: var(--terracotta);
+    border-left: 3px solid var(--terracotta);
+  }
+  .col-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-bottom: 0.25rem;
+  }
+  .col-label.after { color: var(--terracotta); }
+
+  /* 4 SYSTEMS */
+  .systems-section { padding: 5rem 2rem; }
+  .systems-inner { max-width: 900px; margin: 0 auto; }
+  .systems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .system-card {
+    background: var(--warm-white);
+    border: 1px solid var(--sand);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .system-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(61,31,46,0.08); }
+  .system-number {
+    font-family: 'Fraunces', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--sand);
+    position: absolute;
+    top: 1.5rem;
+    right: 1.75rem;
+  }
+  .system-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+  .tag-terracotta { background: var(--terracotta-light); color: var(--terracotta-deep); }
+  .tag-sage { background: var(--sage-light); color: var(--sage); }
+  .tag-gold { background: var(--gold-light); color: #9A7A2A; }
+  .tag-charcoal { background: var(--sand); color: var(--charcoal); }
+
+  .system-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .system-desc {
+    font-size: 0.95rem;
+    color: var(--warm-gray);
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .system-outcome {
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    font-size: 0.88rem;
+    color: var(--charcoal);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .system-outcome::before { content: '→'; color: var(--terracotta); }
+
+  /* WHAT YOU GET */
+  .deliverables-section {
+    background: var(--charcoal);
+    padding: 5rem 2rem;
+    color: var(--cream);
+  }
+  .deliverables-inner { max-width: 900px; margin: 0 auto; }
+  .deliverables-section .section-title { color: var(--cream); }
+  .deliverables-section .section-subtitle { color: #C4A0AD; }
+  .deliverables-section .section-label { color: var(--terracotta); }
+
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .deliverable-item {
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.04);
+  }
+  .deliverable-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .deliverable-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.4rem; }
+  .deliverable-desc { font-size: 0.85rem; color: #C4A0AD; line-height: 1.55; }
+
+  /* TESTIMONIALS */
+  .testimonials-section { padding: 5rem 2rem; background: var(--sage-light); }
+  .testimonials-inner { max-width: 900px; margin: 0 auto; }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+  .testimonial-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.75rem;
+    border: 1px solid rgba(122,140,120,0.2);
+  }
+  .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 0.05em; }
+  .testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--charcoal);
+    margin-bottom: 1.25rem;
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+  }
+  .testimonial-author { font-size: 0.82rem; font-weight: 600; color: var(--warm-gray); }
+
+  /* CTA SECTION */
+  .cta-section {
+    padding: 6rem 2rem;
+    text-align: center;
+    background: var(--warm-white);
+  }
+  .cta-inner { max-width: 640px; margin: 0 auto; }
+  .cta-section .section-title { margin-bottom: 1rem; }
+  .cta-section .section-subtitle { max-width: 100%; margin: 0 auto 2.5rem; }
+  .cta-price-block {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--cream);
+    border: 1px solid var(--sand);
+    border-radius: 20px;
+    padding: 2rem 3rem;
+    margin-bottom: 2rem;
+  }
+  .price-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--warm-gray); margin-bottom: 0.5rem; }
+  .price-amount {
+    font-family: 'Fraunces', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    line-height: 1;
+  }
+  .price-note { font-size: 0.85rem; color: var(--warm-gray); margin-top: 0.4rem; }
+  .cta-guarantee {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+    margin-top: 1.25rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--charcoal);
+    padding: 2.5rem;
+    text-align: center;
+    color: #7A6670;
+    font-size: 0.82rem;
+  }
+  footer span { color: var(--terracotta); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero > * {
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero > *:nth-child(4) { animation-delay: 0.55s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .transform-grid {
+      grid-template-columns: 1fr;
+    }
+    .transform-arrow { transform: rotate(90deg); }
+    .systems-grid { grid-template-columns: 1fr; }
+    nav { padding: 1rem 1.25rem; }
+  }
+
+  /* DIVIDER */
+  .wavy-divider { 
+    width: 100%; 
+    height: 48px; 
+    background: var(--cream);
+    clip-path: ellipse(55% 100% at 50% 0%);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">CEO Systems <span>Method™</span></div>
+  <a href="#enroll" class="nav-cta">Get Instant Access →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">✦ For Business Owners Who Are Done Winging It</div>
+  <h1>Stop Running Your Business.<br>Build One That <em>Runs Itself.</em></h1>
+  <p class="hero-sub">The CEO Systems Method™ is the step-by-step playbook for turning your daily chaos into 4 clear, repeatable systems — so you can finally lead your business instead of surviving it. Built for any business owner who is tired of winging it.</p>
+  <div class="hero-actions">
+    <a href="#enroll" class="btn-primary">Yes, I'm Ready → </a>
+    <a href="#systems" class="btn-secondary">See What's Inside</a>
+  </div>
+</section>
+
+<!-- QUOTE BANNER -->
+<div class="quote-banner">
+  <blockquote>
+    "If you have to think about it <span>repeatedly</span>, it should be a system."
+  </blockquote>
+</div>
+
+<!-- FOR WHO -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">Sound familiar?</div>
+    <h2 class="section-title">You're working hard.<br>But it shouldn't feel this hard.</h2>
+    <p class="section-subtitle">Doesn't matter what industry you're in. If you're nodding at any of these, you're in the right place.</p>
+    <div class="pain-grid">
+      <div class="pain-card"><div class="pain-icon">😩</div><div class="pain-text">You wake up and decide what to do on the fly — every single day</div></div>
+      <div class="pain-card"><div class="pain-icon">💸</div><div class="pain-text">You're busy all the time but can't figure out where the money goes</div></div>
+      <div class="pain-card"><div class="pain-icon">🔁</div><div class="pain-text">You've answered the same client question 47 times this month</div></div>
+      <div class="pain-card"><div class="pain-icon">📲</div><div class="pain-text">You're the only one who can do anything — so you never actually stop</div></div>
+      <div class="pain-card"><div class="pain-icon">🤯</div><div class="pain-text">You have ideas, but no clear process to actually implement them</div></div>
+      <div class="pain-card"><div class="pain-icon">📉</div><div class="pain-text">Sales are inconsistent — feast one month, panic the next</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFORMATION -->
+<section class="transform-section">
+  <div class="transform-inner">
+    <div class="section-label">The shift you're making</div>
+    <h2 class="section-title">From operator to CEO.<br>Here's what that looks like.</h2>
+    <div class="transform-grid">
+      <div>
+        <div class="col-label">Where you are now</div>
+        <div class="transform-col">
+          <div class="transform-item">Reacting to everything</div>
+          <div class="transform-item">Guessing what to do next</div>
+          <div class="transform-item">Doing everything yourself</div>
+          <div class="transform-item">Inconsistent results</div>
+        </div>
+      </div>
+      <div class="transform-arrow">→</div>
+      <div>
+        <div class="col-label after">Where you're headed</div>
+        <div class="transform-col">
+          <div class="transform-item after">Structuring your business intentionally</div>
+          <div class="transform-item after">Knowing exactly what happens next</div>
+          <div class="transform-item after">Directing and delegating with confidence</div>
+          <div class="transform-item after">Predictable, repeatable growth</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 SYSTEMS -->
+<section class="systems-section" id="systems">
+  <div class="systems-inner">
+    <div class="section-label">The Method</div>
+    <h2 class="section-title">4 systems. One complete business.</h2>
+    <p class="section-subtitle">Every business needs these four things working together. Most owners have none of them. This playbook builds all four.</p>
+    <div class="systems-grid">
+      <div class="system-card">
+        <div class="system-number">01</div>
+        <span class="system-tag tag-terracotta">Client System</span>
+        <h3 class="system-name">Attract. Convert.<br>Retain.</h3>
+        <p class="system-desc">How people find you, decide to work with you, and come back again. No more relying on luck or referrals and hoping for the best.</p>
+        <div class="system-outcome">No more random, unpredictable sales</div>
+      </div>
+      <div class="system-card">
+        <div class="system-number">02</div>
+        <span class="system-tag tag-sage">Operations System</span>
+        <h3 class="system-name">Run smooth.<br>Every day.</h3>
+        <p class="system-desc">How your business actually runs — your workflows, your tools, your delivery. When this works, you stop reinventing the wheel daily.</p>
+        <div class="system-outcome">No more chaos or decision fatigue</div>
+      </div>
+      <div class="system-card">
+        <div class="system-number">03</div>
+        <span class="system-tag tag-gold">Money System</span>
+        <h3 class="system-name">Earn, track,<br>and keep it.</h3>
+        <p class="system-desc">How money flows in, gets tracked, and stays in your business. Know your numbers. End the "busy but broke" cycle for good.</p>
+        <div class="system-outcome">No more financial guessing games</div>
+      </div>
+      <div class="system-card">
+        <div class="system-number">04</div>
+        <span class="system-tag tag-charcoal">CEO System</span>
+        <h3 class="system-name">Lead, decide,<br>delegate.</h3>
+        <p class="system-desc">Your role as the owner: how you make decisions, protect your time, and lead instead of doing everything. This is where the real freedom lives.</p>
+        <div class="system-outcome">No more doing everything yourself</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="deliverables-section">
+  <div class="deliverables-inner">
+    <div class="section-label">What's inside</div>
+    <h2 class="section-title">Everything you need.<br>Nothing you don't.</h2>
+    <p class="section-subtitle">Practical, actionable, and built for real business owners — not theory.</p>
+    <div class="deliverables-grid">
+      <div class="deliverable-item">
+        <div class="deliverable-icon">📘</div>
+        <div class="deliverable-title">The Full PDF Workbook</div>
+        <div class="deliverable-desc">Download and keep the complete 30-day CEO Systems Method™ playbook — yours forever.</div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">💻</div>
+        <div class="deliverable-title">Interactive Notion Portal</div>
+        <div class="deliverable-desc">Fill in your workbook digitally inside a beautifully structured Notion workspace — at your own pace.</div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">✍️</div>
+        <div class="deliverable-title">30 Daily Guided Prompts</div>
+        <div class="deliverable-desc">One prompt per day — each one builds directly on the last. No guessing what to do next.</div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">🗂️</div>
+        <div class="deliverable-title">SOP Templates</div>
+        <div class="deliverable-desc">Ready-to-use Standard Operating Procedures you can plug into your business immediately.</div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">📊</div>
+        <div class="deliverable-title">CEO Dashboard Tracker</div>
+        <div class="deliverable-desc">A simple weekly tracker to review your 4 systems and stay on top of your business like a CEO.</div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">🔓</div>
+        <div class="deliverable-title">Lifetime Access</div>
+        <div class="deliverable-desc">Keep the PDF and Notion portal forever. Return to it as your business grows and evolves.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="testimonials-inner">
+    <div class="section-label">Real results</div>
+    <h2 class="section-title">Business owners like you<br>are making the shift.</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"I finally stopped winging it. The Client System alone changed how I sell — I went from inconsistent to fully booked in 6 weeks."</p>
+        <div class="testimonial-author">— Maya R., Brand Strategist</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"I kept saying I needed to 'get organized' but never knew where to start. This method gave me the structure I didn't know I was missing."</p>
+        <div class="testimonial-author">— James T., Online Coach</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"The Money System section broke something open for me. I finally understand where my revenue actually goes — and how to keep more of it."</p>
+        <div class="testimonial-author">— Kezia M., Creative Consultant</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="enroll">
+  <div class="cta-inner">
+    <div class="section-label">Ready to build your systems?</div>
+    <h2 class="section-title">Your business deserves<br>to work without you.</h2>
+    <p class="section-subtitle">Join the CEO Systems Method™ and start building a business that runs on clarity, not chaos.</p>
+    <div class="cta-price-block">
+      <div class="price-label">One-time investment</div>
+      <div class="price-amount">₱4,999</div>
+      <div class="price-note">Instant access · PDF + Notion · Lifetime</div>
+    </div>
+    <br>
+    <a href="#" class="btn-primary" style="font-size:1.05rem; padding: 1.1rem 2.5rem;">Get Instant Access → </a>
+    <div class="cta-guarantee">🔒 30-day money-back guarantee. No questions asked.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 CEO Systems Method™ · All rights reserved · Built for <span>business owners who are done winging it.</span></p>
+</footer>
+
+</body>
+</html>
